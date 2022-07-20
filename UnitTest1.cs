@@ -23,7 +23,7 @@ namespace OACISTestAutomationSelenium
             this.Driver = DriverFactory.Initialize();
         }
 
-        [Test]
+        /*[Test]
         public void CreateClient()
         {
             bool testOkay = false;
@@ -51,6 +51,21 @@ namespace OACISTestAutomationSelenium
                     testOkay = true;
             }
             Assert.IsTrue(testOkay);
+        }*/
+
+        [Test]
+        public void PrintIds()
+        {
+            LandingPage landingPage = new LandingPage(Driver);
+
+           // landingPage
+               // .Search("OAP0052778")
+                //.ClickFirstRow();
+
+        
+
+            PageModelCreator.PrintAllIds(Driver); 
+
         }
 
         [TearDown]

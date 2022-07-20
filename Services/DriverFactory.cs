@@ -22,7 +22,7 @@ namespace OACISTestAutomationSelenium.Functional
             Console.WriteLine("Initializing Driver...");
 
             driver =  new InternetExplorerDriver($@"{new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.FullName}", ieOptions);
-            driver.Manage().Window.Maximize();
+           // driver.Manage().Window.Maximize();
             // Driver.Url=@"file://C:\Users\OKeeffKy\SeleniumDrivers\ON00294E_Dev_V1.pdf";
             driver.Url = "http://intra.stage.oacis.children.gov.on.ca/";
          
