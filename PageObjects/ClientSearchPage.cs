@@ -10,14 +10,10 @@ namespace OACISTestAutomationSelenium.PageObjects
 {
     internal class ClientSearchPage
     {
-        public IWebDriver Driver { get; set; }
         private IWebElement newButton;
         private IWebElement saveButton;
-        public ClientSearchPage(IWebDriver driver)
-        {
-            DriverHelper.WaitForPageLoad(driver);
-            this.Driver = driver;
-        }
+
+        public IWebDriver Driver { get; set; }
         private IWebElement NewButton
         {
             get => newButton == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlStandardOperations_lnkNew""]") : newButton;
@@ -29,12 +25,15 @@ namespace OACISTestAutomationSelenium.PageObjects
             set => saveButton = value;
         }
 
+        public ClientSearchPage(IWebDriver driver)
+        {
+            DriverHelper.WaitForPageLoad(driver);
+            this.Driver = driver;
+        }
         public ClientInformationPage ClickNewButton()
         {
             NewButton.Click();
             return new ClientInformationPage(Driver);
         }
-
-
     }
 }

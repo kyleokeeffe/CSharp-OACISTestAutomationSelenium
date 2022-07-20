@@ -31,7 +31,6 @@ namespace OACISTestAutomationSelenium.PageObjects
         private IWebElement authorizationsLink;
         private IWebElement narrativesLink;
 
-        //  public IWebElement Link { get { return Link == null ? DriverHelper.FindElementWithWait(Driver, ) : Link; } set { Link = value; } }
         public IWebElement ContactLink
         {
             get => contactLink == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlAppContent_lbContactsTab""]") : contactLink;
@@ -112,7 +111,7 @@ namespace OACISTestAutomationSelenium.PageObjects
         {
             this.Driver = driver;
         }
-        public  static ApplicationPage CreateApplicationPage(IWebDriver driver)
+        public static ApplicationPage CreateApplicationPage(IWebDriver driver)
         {
             DriverHelper.WaitForPageLoad(driver);
             ApplicationPage thisPage = new ApplicationPage(driver);
@@ -180,8 +179,6 @@ namespace OACISTestAutomationSelenium.PageObjects
             FollowUpLink.Click();
             return (ApplicationFollowUpPage)this;
         }
-
-        // public AuthorizationListPage
     }
 }
 

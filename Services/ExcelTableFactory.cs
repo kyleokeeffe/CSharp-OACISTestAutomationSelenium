@@ -1,43 +1,32 @@
 ﻿using OACISTestAutomationSelenium.Models.ExcelTableImportTemplates;
 using OACISTestAutomationSelenium.Services.Enums;
 using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OACISTestAutomationSelenium.Services
 {
     internal class ExcelTableFactory
     {
-
-
         public static DataTable ReadExcelIntoTable(string filePathAndName, ImportTemplates importTemplate)
-           
         {
-            // string filePath = @"C:\Users\OKeeffKy\SeleniumDrivers\NewAppInject.xlsx";
             DataTable table = new DataTable();
             FileInfo fileInfo = new FileInfo(filePathAndName);
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
-
             DataColumn col;
             DataRow row;
 
             Console.WriteLine("Reading Excel sheet into DataTable...");
+
             using (var package = new ExcelPackage(fileInfo))
             {
                 try
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-
                     var dims = worksheet.Dimension;
                     var rowQuant = dims.End.Row;
                     var colQuant = dims.End.Column;
-                    ; var headerRow = worksheet.Cells[1, 1, 1, colQuant].AsEnumerable();
-
+                    var headerRow = worksheet.Cells[1, 1, 1, colQuant].AsEnumerable();
                     foreach (var cell in headerRow)//getting header column names 
                     {
                         col = new DataColumn();
@@ -46,14 +35,12 @@ namespace OACISTestAutomationSelenium.Services
                         //col.Caption = "name";
                         table.Columns.Add(col);
                     }
-
-                    for (int iRow = 1; iRow <= rowQuant; iRow++)//maybe start shoudl be 2 
+                    for (int iRow = 1; iRow <= rowQuant; iRow++)
                     {
                         row = table.NewRow();
                         for (int iCol = 1; iCol <= table.Columns.Count; iCol++)
                         {
                             row[iCol - 1] = worksheet.Cells[iRow, iCol].Value.ToString();
-                          
                         }
                         table.Rows.Add(row);
                     }
@@ -64,7 +51,6 @@ namespace OACISTestAutomationSelenium.Services
                     Console.WriteLine(e.StackTrace);
                 }
             }
-
             /*foreach (var thisRow in tableInjected.AsEnumerable())
               {
                   foreach (var cell in thisRow.ItemArray)
@@ -83,18 +69,14 @@ namespace OACISTestAutomationSelenium.Services
         {
             Console.WriteLine($"Checking format of imported table against {importTemplate} template...");
             string[] modelPropertyNames;
-
             var headerRow = importedTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName.ToUpper()).ToArray();
-
             bool allColumnsPresent = false;
             Dictionary<string, bool> allColumnChecks = new Dictionary<string, bool>();
-
 
             switch (importTemplate)
             {
                 case ImportTemplates.Client:
                     modelPropertyNames = new ImportedClient().GetType().GetProperties().Cast<PropertyInfo>().Select(x => x.Name.ToUpper()).ToArray();
-
                     break;
                 case ImportTemplates.Application:
                     modelPropertyNames = new ImportedApplication().GetType().GetProperties().Cast<PropertyInfo>().Select(x => x.Name.ToUpper()).ToArray();
@@ -109,20 +91,17 @@ namespace OACISTestAutomationSelenium.Services
 
             if (allColumnChecks.Values.ToArray().Contains(false))
             {
-
                 Console.WriteLine($"Imported excel table does not match {importTemplate} template.\n" +
                     $"Please ensure the imported spreadsheet contains the following columns:");
                 foreach (var incorrectColumnName in allColumnChecks.Where(x => x.Value.Equals(false)).Select(x => x.Key))
                 {
                     Console.WriteLine($"{incorrectColumnName}");
                 }
-
                 throw new Exception($"Imported excel table does not match {importTemplate.ToString()}");
             }
             else
                 Console.WriteLine("Table import matches specified template.");
             return allColumnsPresent;
         }
-
     }
 }

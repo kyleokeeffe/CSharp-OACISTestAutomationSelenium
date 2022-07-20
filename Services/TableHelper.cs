@@ -13,29 +13,21 @@ namespace OACISTestAutomationSelenium.Services
     {
         public static IWebDriver Driver { get; set; }
 
-
-
         public TableHelper(IWebDriver driver)
         {
             Driver = driver;
         }
-
         public static IReadOnlyCollection<IWebElement> GetGridRows(IWebDriver driver)
         {
             return DriverHelper.FindElementsWithWait(driver, By.XPath("//tr[@class='GridHeader' or starts-with(@class,'GridRow')]"));
-
         }
-        
         public static IReadOnlyCollection<IWebElement> GetTables(IWebDriver driver)
         {
            return DriverHelper.FindElementsWithWait(driver,@"//table[@class=""Grid""]");
-
         }
-
         public static IWebElement GetRow(IWebDriver driver,int tableNum, string colName, string rowValue)
         {
             Console.WriteLine("Finding row...");
-            // pes.ReadPage();
           
             IWebElement table = GetTables(driver).ElementAt(tableNum - 1);
             int headerColNum = GetHeaderColumnNumber(colName, tableNum);
@@ -46,7 +38,6 @@ namespace OACISTestAutomationSelenium.Services
             Console.WriteLine("Row found.");
             return rowAtValue;
         }
-
         public void GetRowItems()
         {
             var firstRow = GetTables(Driver).ElementAt<IWebElement>(1);
@@ -57,23 +48,16 @@ namespace OACISTestAutomationSelenium.Services
                 //item.FindElement(By.XPath("//span[@*]")).GetAttribute("i")
                 Console.WriteLine(item.TagName);
             }
-
-            //var thisThing = row.FindElement(By.TagName("td"));
-            //Console.WriteLine(thisThing);
         }
         public static int GetHeaderColumnNumber(string colName, int tableNum =1)
         {
-          
             IWebElement table = GetTables(Driver).ElementAt(tableNum - 1);
             var colNameSplit = colName.Split('\u0020');
-
             string colNameJoined = String.Join(@""")] and text()[contains(., """, colNameSplit);
-
             int headerColNum = DriverHelper.FindElementsWithinElementWithWait(Driver,@$"./tbody/tr[@class=""GridHeader""]/td[text()[contains(.,""{colNameJoined}"")]]/preceding-sibling::td", table).Count + 1;
             Console.WriteLine("Find element wait done.");
             return headerColNum;
         }
-       
         public IWebElement FindRow(int tableNum, int rowNum)
         {
             Console.WriteLine("Finding row...");
@@ -85,13 +69,11 @@ namespace OACISTestAutomationSelenium.Services
         }
         public List<string> FindColCells(int tableNum, string colName)
         {
-
             List<string> allTargetCellValues = new List<string>();
             if (GetTables(Driver).Count > 0)
             {
                 IWebElement table = GetTables(Driver).ElementAt(tableNum - 1);
                 int headerColNum1 = GetHeaderColumnNumber(colName, tableNum);
-
                 var allRows = DriverHelper.FindElementsWithinElementWithWait(Driver,$@"./tbody/tr", table);
                 Console.WriteLine("Find element wait done.");
                 for (int i = 1; i < allRows.Count; i++)
@@ -105,26 +87,20 @@ namespace OACISTestAutomationSelenium.Services
         }
         public IWebElement FindCell(int tableNum, string colName1, string rowLookup, string colName2)
         {
-
             IWebElement table = GetTables(Driver).ElementAt(tableNum - 1);
             int headerColNum1 = GetHeaderColumnNumber(colName1, tableNum);
             int headerColNum2 = GetHeaderColumnNumber(colName2, tableNum);
-
             var targetCell = DriverHelper.FindElementWithinElementWithWait(Driver,$@"./tbody/tr/td[{headerColNum1}]/span[text()[contains(., ""{rowLookup}"")]]/parent::td/parent::tr/td[{headerColNum2}]/span", table);
             Console.WriteLine("Find element wait done.");
             return targetCell;
         }
         public IWebElement FindCell(int tableNum, string colName1, int rowNum)
         {
-
             IWebElement table = GetTables(Driver).ElementAt(tableNum - 1);
             int headerColNum1 = GetHeaderColumnNumber(colName1, tableNum);
             //int headerColNum2 = GetHeaderColumnNumber(tableNum, colName2);
 
-
-            //need value of calumn at row num 
-
-            var targetCell = DriverHelper.FindElementWithinElementWithWait(Driver,$@"./tbody/tr/td[{headerColNum1}]/span", table);///////////////////////////////////Mar 25 edit
+            var targetCell = DriverHelper.FindElementWithinElementWithWait(Driver,$@"./tbody/tr/td[{headerColNum1}]/span", table);
             Console.WriteLine("Find element wait done.");
             return targetCell;
         }
@@ -145,7 +121,6 @@ namespace OACISTestAutomationSelenium.Services
         {
             DataColumn col;
             DataRow row;
-
             DataTable dt = new DataTable();
             var thisTableHeader = table.FindElements(By.XPath(@"./tbody/tr[@class=""GridHeader""]/td"));
             var thisTableRows = table.FindElements(By.XPath(@"./tbody/tr"));
@@ -155,7 +130,6 @@ namespace OACISTestAutomationSelenium.Services
                 col.DataType = typeof(string);
                 col.ColumnName = column.GetAttribute("innerHTML");
                 //col.Caption = "name";
-
                 dt.Columns.Add(col);
             }
 
@@ -169,7 +143,6 @@ namespace OACISTestAutomationSelenium.Services
                 dt.Rows.Add(row);
             }
             //var queryStatement = dt.AsEnumerable().Where<DataRow>(x => (string)x["Name"] == "Steve").Select(j => j["Age"]);
-
             foreach (var blah in dt.AsEnumerable())
             {
                 foreach (var asdf in blah.ItemArray)
@@ -187,7 +160,7 @@ namespace OACISTestAutomationSelenium.Services
         }
         public string ReadRowCell(int tableNum, string colName1, int rowNum)
         {
-            var foundCell = FindCell(tableNum, colName1, rowNum);//left here at mar 25 
+            var foundCell = FindCell(tableNum, colName1, rowNum);
             string foundCellValue = foundCell.GetAttribute("innerHTML");
             return foundCellValue;
         }
@@ -202,7 +175,6 @@ namespace OACISTestAutomationSelenium.Services
             var table = GetTables(Driver).ElementAt(tableNum - 1);
             DataColumn col;
             DataRow row;
-
             DataTable dt = new DataTable();
             var thisTableHeader = table.FindElements(By.XPath(@"./tbody/tr[@class=""GridHeader""]/td"));
             var thisTableRows = table.FindElements(By.XPath(@"./tbody/tr"));
@@ -211,7 +183,6 @@ namespace OACISTestAutomationSelenium.Services
                 col = new DataColumn();
                 col.DataType = typeof(string);
                 //var colNameSplit = colName.Split('\u0020');
-
                 // string colNameJoined = String.Join(@""")] and text()[contains(., """, colNameSplit);
                 string colName = column.GetAttribute("innerHTML");
                 if (colName.Contains('<') || colName.Contains('>'))
@@ -236,29 +207,17 @@ namespace OACISTestAutomationSelenium.Services
                 for (int k = 1; k < dt.Columns.Count; k++)
                 {
                     var thisCell = thisTableRows.ElementAt(i).FindElement(By.XPath($"./td[{k}]/span")).GetAttribute("innerHTML");
-
                     row[k - 1] = thisCell;
                     Console.WriteLine($"{dt.Columns[k - 1].ColumnName}: {thisCell}");
                 }
                 dt.Rows.Add(row);
             }
             //var queryStatement = dt.AsEnumerable().Where<DataRow>(x => (string)x["Name"] == "Steve").Select(j => j["Age"]);
-
-
             // return dt;
 
-
-            foreach (var blah in dt.AsEnumerable())
-            {
-                foreach (var asdf in blah.ItemArray)
-                {
-                    Console.WriteLine($"thing is {asdf.ToString()}");
-                }
-            }
             Console.WriteLine("Converting web table to DataTable done.");
             return dt;
         }
     }
-
 }
 

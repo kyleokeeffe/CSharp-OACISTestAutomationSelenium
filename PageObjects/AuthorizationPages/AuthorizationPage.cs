@@ -11,9 +11,6 @@ namespace OACISTestAutomationSelenium.PageObjects
     public class AuthorizationPage:AuthorizationParent
     {
 
-
-
-
         public AuthorizationPage(IWebDriver driver):base(driver)
         {
     

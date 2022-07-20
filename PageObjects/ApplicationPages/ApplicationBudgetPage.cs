@@ -19,7 +19,8 @@ namespace OACISTestAutomationSelenium.PageObjects.ApplicationPages
         private IWebElement needsProfileSelect;
         private IWebElement totalReconciledExpensesLbl;
         private IWebElement totalInstalmentsPaidLbl;
-      
+
+        public PageTables Tables { get; set; }
         public IWebElement BudgetCalcYearSelect
         {
             get => budgetCalcYearSelect == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlAppContent_ddlBudgetYear""]") : budgetCalcYearSelect;
@@ -65,9 +66,6 @@ namespace OACISTestAutomationSelenium.PageObjects.ApplicationPages
         {
 
         }
-
-        public PageTables Tables { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
         public AuthorizationPage ClickAuthorizationRow(string colName, string rowValue)
         {
             Tables.GetRow(colName, rowValue).Click();

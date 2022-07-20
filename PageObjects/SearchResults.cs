@@ -50,8 +50,6 @@ namespace OACISTestAutomationSelenium.PageObjects
          {
              return DriverHelper.FindElementsWithWait(driver, @"//table[@class=""Grid""]");
          }*/
-
-
     }
 }
 

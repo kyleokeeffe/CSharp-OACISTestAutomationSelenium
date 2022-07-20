@@ -54,21 +54,16 @@ namespace OACISTestAutomationSelenium.PageObjects
             DriverHelper.WaitForPageLoad(driver);
             this.Driver = driver;
         }
-
         public SearchResults Search(string searchTerm)
         {
             SearchField.SendKeys(searchTerm);
             SearchField.SendKeys(Keys.Return);
-            //Elements.GetSearchBox().SendKeys(searchTerm);
-            //Elements.GetSearchBox().Submit();
             return new SearchResults(Driver);
         }
-
         public ClientSearchPage ClickClientLink()
         {
             ClientLink.Click();
             return new ClientSearchPage(Driver);
         }
-        
     }
 }

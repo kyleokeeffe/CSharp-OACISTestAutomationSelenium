@@ -19,7 +19,6 @@ namespace OACISTestAutomationSelenium.PageObjects.AuthorizationPages
         private IWebElement paymentsLink;
         public IWebElement applicationLink;
 
-
         public IWebElement NewLink
         {
             get => newLink == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlStandardOperations_lnkNew""]") : newLink;
@@ -60,18 +59,15 @@ namespace OACISTestAutomationSelenium.PageObjects.AuthorizationPages
         {
             this.Driver = driver;
         }
-
         public AuthorizationListPage ClickAuthorizationsLink()
         {
             AuthorizationsLink.Click();
             return (AuthorizationListPage)this;
         }
-
         public  ApplicationPage ClickApplicationLink()
         {
             ApplicationLink.Click();
             return  ApplicationPage.CreateApplicationPage(Driver);
         }
-
     }
 }

@@ -104,7 +104,6 @@ namespace OACISTestAutomationSelenium.PageObjects
             set => applicationsButton = value;
         }
 
-
         public ClientInformationPage(IWebDriver driver)
         {
             DriverHelper.WaitForPageLoad(driver);
@@ -208,14 +207,11 @@ namespace OACISTestAutomationSelenium.PageObjects
         //    return DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlPageNav_lnkApplications""]");
 
         // }
-
-
         public ApplicationsListPage ClickApplicationsLink()
         {
             ApplicationsButton.Click();
             return  new ApplicationsListPage(Driver);
         }
-
         public ClientInformationPage ClickSaveButton()
         {
             SaveButton.Click();
@@ -228,13 +224,11 @@ namespace OACISTestAutomationSelenium.PageObjects
             LastNameField.SendKeys(text);
             return this;
         }
-
         public ClientInformationPage FillClientNumberField(string text)
         { 
             ClientNumberField.SendKeys(text); 
             return this; 
         }
-
         public ClientInformationPage FillIIOTransitionCodeField(string text)
         {
             IIOTransitionCodeField.SendKeys(text);
@@ -290,6 +284,5 @@ namespace OACISTestAutomationSelenium.PageObjects
             ConsentDeclinedDateField.SendKeys(text);
             return this;
         }
-
     }
 }

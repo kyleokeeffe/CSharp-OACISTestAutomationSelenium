@@ -82,7 +82,6 @@ namespace OACISTestAutomationSelenium.PageObjects
         {
 
         }
-
         /*public IWebElement GetLastNameField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_txtApplicantLastName""]");
         public IWebElement GetFirstNameField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_txtApplicantFirstName""]");
         public IWebElement GetDobField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_ctlApplicantDob_txtDate""]");
@@ -95,9 +94,5 @@ namespace OACISTestAutomationSelenium.PageObjects
         public IWebElement GetProvinceSelect() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_ddlApplicantProvince""]");
         public IWebElement GetPostalCodeField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_txtApplicantPostalCode""]");
         */
-
-
-
-
     }
 }

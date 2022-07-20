@@ -118,7 +118,6 @@ namespace OACISTestAutomationSelenium.PageObjects
         {
             
         }
-
         //public IWebElement GetAppReceivedDateField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_ctlApplicationReceivedDate_txtDate""]");
         // public IWebElement GetIntakeProcessSelect() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_ddlIntakeProcess""]");
         //public IWebElement GetFamilyInfoLetterDateField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_ctlInformationLetterDate_txtDate""]");
@@ -141,7 +140,5 @@ namespace OACISTestAutomationSelenium.PageObjects
         //public IWebElement GetschoolBoardField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_txtSchoolBoard""]");
         //public IWebElement GetschoolField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_txtSchoolName""]");
         //public IWebElement GetapplicationCompletedField() => DriverHelper.FindElementWithWait(base.Driver, @"//*[@id=""ctlAppContent_ctlApplicationCompletedDate_txtDate""]");
-
-       
     }
 }

@@ -12,15 +12,12 @@ namespace OACISTestAutomationSelenium.PageObjects.ApplicationPages
     {
         private IWebElement followupDate;
 
-
-
         public IWebElement FollowupDate
         {
             get { return followupDate == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlStandardOperations_lnkNew""]") : followupDate; }
             set { followupDate = value; }     
         }
-
-            //followupDate = DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlStandardOperations_lnkNew""]")
+      
         public ApplicationFollowUpPage(IWebDriver driver) : base(driver)
         {
 
