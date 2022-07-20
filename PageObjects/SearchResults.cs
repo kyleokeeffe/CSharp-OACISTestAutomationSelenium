@@ -14,12 +14,7 @@ namespace OACISTestAutomationSelenium.PageObjects
     public class SearchResults : IPageTables
     {
         private IWebDriver Driver;
-
         public PageTables Tables { get; set ; }
-
-      
-
-
 
         public SearchResults(IWebDriver driver)
         {
@@ -29,26 +24,11 @@ namespace OACISTestAutomationSelenium.PageObjects
             this.Tables = new PageTables(driver);
 
         }
-
-
-
         public IReadOnlyCollection<IWebElement> GetSearchResults()
         {
             return TableHelper.GetGridRows(this.Driver);
         }
-
-       /* public IWebElement GetSearchResultRow(int tableNum, string colName, string rowValue)
-        {
-            return TableHelper.GetRow(this.Driver, 1, colName, rowValue);
-        }*/
-
-        /*public SearchResults ClickResult(string searchTerm)
-        {
-            GetSearchResultRow(1, "Application Number", searchTerm);
-            return this;
-        }*/
-
-        public  ClientInformationPage ClickFirstRow()
+        public ClientInformationPage ClickFirstRow()
         {
           
             Tables.GetRow(1).Click();
@@ -57,9 +37,15 @@ namespace OACISTestAutomationSelenium.PageObjects
 
         }
 
-
-
-
+        /* public IWebElement GetSearchResultRow(int tableNum, string colName, string rowValue)
+        {
+            return TableHelper.GetRow(this.Driver, 1, colName, rowValue);
+        }*/
+        /*public SearchResults ClickResult(string searchTerm)
+        {
+            GetSearchResultRow(1, "Application Number", searchTerm);
+            return this;
+        }*/
         /* public IReadOnlyCollection<IWebElement> GetTables(IWebDriver driver)
          {
              return DriverHelper.FindElementsWithWait(driver, @"//table[@class=""Grid""]");

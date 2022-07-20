@@ -31,9 +31,7 @@ namespace OACISTestAutomationSelenium.PageObjects
         private IWebElement authorizationsLink;
         private IWebElement narrativesLink;
 
-
         //  public IWebElement Link { get { return Link == null ? DriverHelper.FindElementWithWait(Driver, ) : Link; } set { Link = value; } }
-
         public IWebElement ContactLink
         {
             get => contactLink == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlAppContent_lbContactsTab""]") : contactLink;
@@ -79,7 +77,6 @@ namespace OACISTestAutomationSelenium.PageObjects
             get => deleteLink == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlStandardOperations_lnkDelete""]") : deleteLink;
             set => deleteLink = value;
         }
-
         public IWebElement ListLink
         {
             get => listLink == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlAppPageNav_lnkAppList""]") : listLink;
@@ -111,14 +108,10 @@ namespace OACISTestAutomationSelenium.PageObjects
             set => narrativesLink = value;
         }
 
-
-
-
         protected ApplicationPage(IWebDriver driver)
         {
             this.Driver = driver;
         }
-
         public  static ApplicationPage CreateApplicationPage(IWebDriver driver)
         {
             DriverHelper.WaitForPageLoad(driver);
@@ -157,41 +150,31 @@ namespace OACISTestAutomationSelenium.PageObjects
                     return thisPage;
             }
         }
-
-
-
-
-
         public ApplicationPage ClickPriorServiceLink()
         {
             PriorServiceLink.Click();
             return (ApplicationPriorServicePage)this;
         }
-
         public ApplicationPage ClickContactsLink()
         {
             ContactLink.Click();
             return (ApplicationContactsPage)this;
         }
-
         public ApplicationPage ClickBankingLink()
         {
             BankingLink.Click();
             return (ApplicationBankingPage)this;
         }
-
         public ApplicationPage ClickIntakeLink()
         {
             IntakeLink.Click();
             return (ApplicationIntakePage)this;
         }
-
         public ApplicationPage ClickBudgetLink()
         {
             BudgetLink.Click();
             return (ApplicationBudgetPage)this;
         }
-
         public ApplicationPage ClickFollowUpLink()
         {
             FollowUpLink.Click();

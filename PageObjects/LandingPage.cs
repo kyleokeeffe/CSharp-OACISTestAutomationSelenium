@@ -15,48 +15,45 @@ namespace OACISTestAutomationSelenium.PageObjects
     {
         private IWebDriver Driver;
         private IWebElement searchField;
+        private IWebElement clientLink;
+        private IWebElement reportsLink;
 
+        public IWebElement SearchField
+        {
+            get => searchField == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlQueryBox_txtQuery""]") : searchField;
+            set => searchField = value;
+        }
+        private IWebElement ClientLink
+        {
+            get => clientLink == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlPrimaryNav_lnkClient""]") : clientLink;
+            set => clientLink = value;
+        }
+        private IWebElement ReportsLink
+        {
+            get => reportsLink == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlPrimaryNav_lnkReports""]") : reportsLink;
+            set => reportsLink = value;
+        }
+        /* public IWebElement GetSearchField()
+         {
+             return DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlQueryBox_txtQuery""]");
+         }
 
+         public IWebElement GetClientLink()
+         {
+             return DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlPrimaryNav_lnkClient""]");
+         }
+        
+        public IWebElement GetReportsLink()
+        {
+            return DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlPrimaryNav_lnkReports""]");
+        }
+        */
 
         public LandingPage(IWebDriver driver)
         {
             DriverHelper.WaitForPageLoad(driver);
             this.Driver = driver;
         }
-
-
-
-
-        public IWebElement SearchField
-        {
-             get => searchField == null ? DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlQueryBox_txtQuery""]") : searchField;
-
-            //get => searchField == null ? await DriverHelper.FindElementAsyncCaller(Driver, @"//*[@id=""ctlQueryBox_txtQuery""]") : searchField;
-
-
-          //  Window.Current.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => { Title= await GetTytleAsync(url);
-   // });
-          //  get => searchField == null ?  Task.Run(() => DriverHelper.FindElementAsyncCaller(Driver, @"//*[@id=""ctlQueryBox_txtQuery""]")).GetAwaiter().GetResult():searchField;
-   
-            set => searchField = value;
-        }
-        public IWebElement GetSearchBox()
-        {
-            return DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlQueryBox_txtQuery""]");
-        }
-
-        public IWebElement GetClientLink()
-        {
-            return DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlPrimaryNav_lnkClient""]");
-        }
-
-        public IWebElement GetReportsLink()
-        {
-            return DriverHelper.FindElementWithWait(Driver, @"//*[@id=""ctlPrimaryNav_lnkReports""]");
-        }
-
-
-
 
         public SearchResults Search(string searchTerm)
         {
@@ -67,7 +64,11 @@ namespace OACISTestAutomationSelenium.PageObjects
             return new SearchResults(Driver);
         }
 
-
+        public ClientSearchPage ClickClientLink()
+        {
+            ClientLink.Click();
+            return new ClientSearchPage(Driver);
+        }
         
     }
 }
