@@ -58,13 +58,15 @@ namespace OACISTestAutomationSelenium
         {
             LandingPage landingPage = new LandingPage(Driver);
 
-           // landingPage
-               // .Search("OAP0052778")
-                //.ClickFirstRow();
+            landingPage
+                .Search("OAP0052778")
+                .ClickFirstRow()
+                .ClickApplicationsLink()
+                .ClickApplication(ApplicationListColumns.IntakeProcess, "Determination of Needs");
 
         
 
-            PageModelCreator.PrintAllIds(Driver); 
+            PageModelCreator.PrintPageModelCode(Driver); 
 
         }
 

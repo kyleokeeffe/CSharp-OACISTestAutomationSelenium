@@ -31,8 +31,62 @@ namespace OACISTestAutomationSelenium.Services
                 "DriverHelper.WaitForPageLoad(driver);\n" +
                 "this.Driver = driver;\n" +
             "}";
-            var allTextInputs = DriverHelper.FindElementsWithWait(driver,@"//input[@type=""text"" and starts-with(@id,""ctl"")]");
-            var allLinks = DriverHelper.FindElementsWithWait(driver, @"//a[contains(@id,""ctl"") and contains(@id,""lnk"")]");
+           DriverHelper.WaitForPageLoad(driver);
+            IWebElement activeTab = null;
+            try
+            {
+
+                activeTab = DriverHelper.FindElementWithWait(driver, @"//div[@class=""SectionTabOn""]");
+
+            }catch(Exception ex)
+            {
+                activeTab = null;
+            }
+
+            IReadOnlyCollection<IWebElement> allTextInputs; 
+            IReadOnlyCollection<IWebElement> allLinks;
+            if (activeTab != null)
+            {
+                List<IWebElement> allSectionOffTextInputs = new List<IWebElement>();
+                List<IWebElement> allSectionOffLinks = new List<IWebElement>();
+
+                var allTextInputsEntirePage = DriverHelper.FindElementsWithWait(driver, @"//input[@type=""text"" and starts-with(@id,""ctl"") and not(contains(@class,""idden"")) ]");
+                var allLinksEntirePage = DriverHelper.FindElementsWithWait(driver, @"//a[contains(@id,""ctl"") and contains(@id,""lnk"")]");
+
+                var allSectionOffDivs = DriverHelper.FindElementsWithWait(driver, @"//div[@class=""SectionTabOff""]");
+
+                foreach(var element in allSectionOffDivs)
+                {
+                    var sectionOffTexts = DriverHelper.FindElementsWithinElementWithWait(driver, @"./descendant::input[@type=""text"" and starts-with(@id,""ctl"") and not(contains(@class,""idden""))]", element);
+                    var sectionOffLinks = DriverHelper.FindElementsWithinElementWithWait(driver, @"./descendant::a[contains(@id,""ctl"") and contains(@id,""lnk"")]", activeTab);
+
+                    allSectionOffTextInputs.AddRange(sectionOffTexts);
+                    allSectionOffLinks.AddRange(sectionOffLinks);
+
+
+                }
+                
+               
+                // var allSectionOffTextInputs= DriverHelper.FindElementsWithWait(driver, @"//div[@class=""SectionTabOff""]/descendant::input[@type=""text"" and starts-with(@id,""ctl"") and not(contains(@class,""idden"")) ]");
+                // var allSectionOffLinks =DriverHelper.FindElementsWithinElementWithWait(driver, @"//div[@class=""SectionTabOff""]/descendant::a[contains(@id,""ctl"") and contains(@id,""lnk"")]", activeTab);
+
+                IReadOnlyCollection<IWebElement> allTextInputsExceptSectionOff = allTextInputsEntirePage.Except(allSectionOffTextInputs).ToList().AsReadOnly();
+                IReadOnlyCollection<IWebElement> allLinksExceptSectionOff = allLinksEntirePage.Except(allSectionOffLinks).ToList().AsReadOnly();
+
+                allTextInputs = allTextInputsExceptSectionOff;
+                allLinks = allLinksExceptSectionOff;
+               // allTextInputs = DriverHelper.FindElementsWithinElementWithWait(driver, @"./descendant::input[@type=""text"" and starts-with(@id,""ctl"") and not(contains(@class,""idden"")) ]",activeTab);
+               //allLinks = DriverHelper.FindElementsWithinElementWithWait(driver, @"./descendant::a[contains(@id,""ctl"") and contains(@id,""lnk"")]", activeTab);
+
+            }
+            else
+            {
+
+                allTextInputs = DriverHelper.FindElementsWithWait(driver, @"//input[@type=""text"" and starts-with(@id,""ctl"") and not(contains(@class,""idden"")) ]");
+                allLinks = DriverHelper.FindElementsWithWait(driver, @"//a[contains(@id,""ctl"") and contains(@id,""lnk"")]");
+            }
+
+
 
             foreach (var input in allTextInputs)
             {
@@ -87,7 +141,7 @@ namespace OACISTestAutomationSelenium.Services
                     $"public Place_Holder Click{propName}(string text)\n" +
                     "{\n" +
                     $"\t{propName}.Click();\n" +
-                    "\treturn Place_Holder;\n" +
+                    "\treturn new Place_Holder(Driver);\n" +
                     "}\n";
                 //Console.WriteLine($"{id} - {propName} - {propNameLower}");
             }

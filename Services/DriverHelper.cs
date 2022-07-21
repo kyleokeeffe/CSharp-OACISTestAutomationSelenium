@@ -169,16 +169,22 @@ namespace OACISTestAutomationSelenium.Functional
 
             Console.WriteLine($"Finding element {xPath} - waiting for response...");
             IReadOnlyCollection<IWebElement> foundWithinElements = wait.Until(drv => withinElement.FindElements(By.XPath(xPath)));
-            List<IWebElement> clickableFoundWithinElements = new List<IWebElement>();
+           
+         /*   List<IWebElement> clickableFoundWithinElements = new List<IWebElement>();
 
-            foreach (var element in foundWithinElements)
-            {
-                var elementClickable = wait.Until(ExpectedConditions.ElementToBeClickable(element));
-                clickableFoundWithinElements.Add(elementClickable);
-            }
-            var clickableElementsAsReadOnly = clickableFoundWithinElements.AsReadOnly();
-            Console.WriteLine($"Wait over - element {xPath} found.");
-            return clickableElementsAsReadOnly;
+              foreach (var element in foundWithinElements)
+              {
+                 // IWait<IWebDriver> Wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(30.00));
+                 // Wait.Until(drv => ((IJavaScriptExecutor)drv).ExecuteScript("return document.readyState").Equals("complete"));
+                  var elementClickable = wait.Until(ExpectedConditions.ElementToBeClickable(element));
+                  //var elementClickable = wait.Until(ExpectedConditions. (element));
+                  clickableFoundWithinElements.Add(elementClickable);
+              }
+              var clickableElementsAsReadOnly = clickableFoundWithinElements.AsReadOnly();
+              Console.WriteLine($"Wait over - element {xPath} found.");
+              return clickableElementsAsReadOnly;*/
+            
+            return foundWithinElements;
         }
     }
 }

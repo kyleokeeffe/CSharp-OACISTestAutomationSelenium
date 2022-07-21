@@ -116,38 +116,39 @@ namespace OACISTestAutomationSelenium.PageObjects
             DriverHelper.WaitForPageLoad(driver);
             ApplicationPage thisPage = new ApplicationPage(driver);
            // IWebElement activeTab = await DriverHelper.FindElementWithWait(driver, @"//div[class=""SectionTabOn""]");
-            IWebElement activeTab =  DriverHelper.FindElementWithWait(driver, @"//div[class=""SectionTabOn""]");
+            IWebElement activeTab =  DriverHelper.FindElementWithWait(driver, @"//a[@class=""TabOn""]");
             string activeTabId = activeTab.GetAttribute("id");
 
             switch (activeTabId)
             {
-                case "ctlAppContent_panelTab0":
-                    return (ApplicationContactsPage)thisPage;
+                case "ctlAppContent_lbPriorServiceTab":
+                    thisPage = new ApplicationPriorServicePage(driver);
                     //prior service tab
                     break;
-                case "ctlAppContent_panelTab1":
+                case "ctlAppContent_lbContactsTab":
                     //contact tab
-                    return (ApplicationContactsPage)thisPage;
+                    thisPage = new ApplicationContactsPage(driver);
                     break;
-                case "ctlAppContent_panelTab2":
+                case "ctlAppContent_lbIntakeTab":
                     //intake tab
-                    return (ApplicationIntakePage)thisPage;
+                    thisPage = new ApplicationIntakePage(driver);
                     break;
-                case "ctlAppContent_panelTab3":
+                case "ctlAppContent_lbBudgetTab":
                     //budget
-                    return (ApplicationContactsPage)thisPage;
+                    thisPage = new ApplicationBudgetPage(driver);
                     break;
-                case "ctlAppContent_panelTab4":
+                case "ctlAppContent_lbFollowUpTab":
                     //followup
-                    return (ApplicationContactsPage)thisPage;
+                    thisPage = new ApplicationFollowUpPage(driver);
                     break;
-                case "ctlAppContent_panelTab5":
+                case "ctlAppContent_lbBankingTab":
                     //banking
-                    return (ApplicationContactsPage)thisPage;
+                    thisPage = new ApplicationBankingPage(driver);
                     break;
                 default:
-                    return thisPage;
+                    break;
             }
+            return thisPage;
         }
         public ApplicationPage ClickPriorServiceLink()
         {
