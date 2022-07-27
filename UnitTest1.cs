@@ -23,12 +23,12 @@ namespace OACISTestAutomationSelenium
             this.Driver = DriverFactory.Initialize();
         }
 
-        /*[Test]
+        [Test]
         public void CreateClient()
         {
             bool testOkay = false;
-           
-            DataTable importedClients = ExcelTableFactory.ReadExcelIntoTable(@$"{ new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName}\Data\ExcelImports\ClientImportJul20.xlsx", ImportTemplates.Client);
+            string fileName = "ClientImportJul20.xlsx";
+            DataTable importedClients = ExcelTableFactory.ReadExcelIntoTable(@$"{ new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName}\Data\ExcelImports\{fileName}", ImportTemplates.Client);
             List<IImportObject> clientsToCreate = ExcelTableImportHelper.ConvertTableToObjects(importedClients, ImportTemplates.Client);
 
             for(int i = 0; i < clientsToCreate.Count; i++)
@@ -37,12 +37,12 @@ namespace OACISTestAutomationSelenium
                 LandingPage landingPage = new LandingPage(Driver);
 
                 landingPage
-                    .ClickClientLink()
-                    .ClickNewButton()
-                    .FillFirstNameField(client.ClientFirstName)
-                    .FillLastNameField(client.ClientLastName)
-                    .FillDobField(client.ClientDob)
-                .ClickSaveButton();
+                    .ClickClientlnk()
+                    .ClickNewlnk()
+                    .FillFirstNametxt(client.ClientFirstName)
+                    .FillLastNametxt(client.ClientLastName)
+                    .FillDob_txtDatectl(client.ClientDob)
+                    .ClickSavelnk();
 
                 ScreenshotHelper.TakeScreenShotBrowserContents(Driver,"TC-1234");
                 Console.WriteLine(client.ToString());
@@ -51,24 +51,27 @@ namespace OACISTestAutomationSelenium
                     testOkay = true;
             }
             Assert.IsTrue(testOkay);
-        }*/
-
-        [Test]
-        public void PrintIds()
-        {
-            LandingPage landingPage = new LandingPage(Driver);
-
-            landingPage
-                .Search("OAP0052778")
-                .ClickFirstRow()
-                .ClickApplicationsLink()
-                .ClickApplication(ApplicationListColumns.IntakeProcess, "Determination of Needs");
-
-        
-
-            PageModelCreator.PrintPageModelCode(Driver); 
-
         }
+
+        //[Test]
+        //public void PrintIds()
+        //{
+        //    LandingPage landingPage = new LandingPage(Driver);
+
+
+
+           // landingPage
+           // .SubmitSearchField("OAP0083762")
+           //   .ClickFirstRow()
+           //   .ClickApplicationslnk()
+           //   .ClickNewlnk()
+           //   .ClickIntakeLink();
+
+        //   PageModelCreator.PrintPageModelCode(Driver);
+
+        //}
+
+
 
         [TearDown]
         public void TearDown()
